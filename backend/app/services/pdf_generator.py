@@ -1,5 +1,6 @@
 from fpdf import FPDF
 import datetime
+import html as _html
 
 class PDF(FPDF):
     def header(self):
@@ -41,4 +42,11 @@ def create_pdf_report(game_list: list):
         pdf.cell(45, 10, start_str, 1, 0, 'C')
         pdf.cell(30, 10, duration, 1, 1, 'C')
         
-    return bytes(pdf.output())
+    # request PDF as bytes/string explicitly and normalize to bytes
+    out = pdf.output(dest='S')
+    if isinstance(out, str):
+        try:
+            out = out.encode('utf-8')
+        except Exception:
+            out = out.encode('latin-1', errors='ignore')
+    return out
