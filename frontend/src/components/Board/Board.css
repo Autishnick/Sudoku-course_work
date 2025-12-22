@@ -6,6 +6,6 @@
   margin-top: 20px;
   border: 3px solid #333;
   border-radius: 5px;
-  overflow: hidden; /* Щоб кути були заокруглені */
-  aspect-ratio: 1 / 1; /* Зберігає сітку квадратною */
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
 }

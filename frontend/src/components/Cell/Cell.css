@@ -4,19 +4,17 @@
   padding: 0;
   margin: 0;
 
-  /* Відображення */
-  font-size: 1.5em; /* Розмір цифри */
+  font-size: 1.5em;
   text-align: center;
-  color: #007bff; /* Колір цифр, які вводить користувач */
+  color: #007bff;
   background-color: #fff;
 
   /* Скидання стилів input */
   border: 1px solid #ccc;
   border-radius: 0;
-  box-sizing: border-box; /* Важливо для сітки */
+  box-sizing: border-box;
 }
 
-/* Скидання стрілок для type="number" (хоча ми використовуємо "text") */
 .cell-component::-webkit-outer-spin-button,
 .cell-component::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -26,7 +24,6 @@
   -moz-appearance: textfield;
 }
 
-/* Клітинки, які були "задані" сервером */
 .cell-component.is-given {
   background-color: #f4f4f4;
   color: #333;
@@ -34,7 +31,6 @@
   cursor: not-allowed;
 }
 
-/* Стилі для жирних ліній 3x3 */
 .cell-component.border-thick-right {
   border-right: 3px solid #333;
 }
@@ -43,7 +39,6 @@
   border-bottom: 3px solid #333;
 }
 
-/* Прибираємо подвійні лінії, оскільки сітка має border */
 .cell-component:nth-child(9n) {
   border-right: 1px solid #ccc;
 }
@@ -51,15 +46,12 @@
   border-bottom: 1px solid #ccc;
 }
 .cell-component.is-incorrect {
-  /* Робимо цифру червоною */
   color: #d9534f;
 
-  /* Робимо фон трішки червоним, щоб привернути увагу */
   background-color: #fdf2f2;
 }
 
 .cell-component.is-invalid-creation {
-  /* Ми робимо фон червоним, а цифру - білою */
   background-color: #d9534f;
   color: white;
 }

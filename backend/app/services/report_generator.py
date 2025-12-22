@@ -25,23 +25,26 @@ def format_report_as_html(game_list: list):
             </tr>
     """
     
-    for game in game_list: # game - це словник
+    for game in game_list: 
         game_id = game["id"]
         game_name = game["name"] if game["name"] else "(Unnamed)"
         start_time = game["start_time"]
         end_time = game["end_time"]
 
+        start_str = start_time.strftime('%Y-%m-%d %H:%M:%S') if start_time else "N/A"
+        end_str = end_time.strftime('%Y-%m-%d %H:%M:%S') if end_time else "N/A"
+        
         duration = "N/A"
         if end_time and start_time:
             duration_delta = end_time - start_time
-            duration = str(datetime.timedelta(seconds=int(duration_delta.total_seconds())))
+            duration = str(duration_delta)
 
         html += f"""
             <tr>
                 <td>{game_id}</td>
                 <td>{game_name}</td>
-                <td>{start_time.strftime('%Y-%m-%d %H:%M:%S')}</td>
-                <td>{end_time.strftime('%Y-%m-%d %H:%M:%S')}</td>
+                <td>{start_str}</td>
+                <td>{end_str}</td>
                 <td>{duration}</td>
             </tr>
         """

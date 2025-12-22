@@ -21,33 +21,26 @@ function Controls() {
 
   const [difficulty, setDifficulty] = useState("easy");
 
-  // --- Стани для меню ---
   const [isLoadMenuOpen, setIsLoadMenuOpen] = useState(false);
-  const [isSaveMenuOpen, setIsSaveMenuOpen] = useState(false); // Для меню збереження
+  const [isSaveMenuOpen, setIsSaveMenuOpen] = useState(false);
 
   const [loadName, setLoadName] = useState("");
-  const [saveName, setSaveName] = useState(""); // Для поля вводу назви збереження
+  const [saveName, setSaveName] = useState("");
 
-  // Завантажуємо список ігор при першому рендері
   useEffect(() => {
     fetchSavedGames();
   }, [fetchSavedGames]);
 
-  // Миттєва валідація назви збереження
   const isNameTaken = useMemo(() => {
     if (!saveName) return false;
-    // Перевіряємо, чи введена назва вже є у списку
     return savedGamesList.some(game => game.name === saveName.trim());
   }, [saveName, savedGamesList]);
-
-  // --- Обробники подій ---
 
   const handleNewGame = () => fetchNewGame(difficulty);
   const handleSolve = () => solveCurrentBoard();
   const handleReportHtml = () => window.open(getHtmlReportUrl(), "_blank");
   const handleReportPdf = () => (window.location.href = getPdfReportUrl());
 
-  // Нова логіка збереження
   const handleOpenSaveMenu = () => {
     if (!gameId) return alert("No active game to save!");
     setIsSaveMenuOpen(true);
@@ -56,20 +49,18 @@ function Controls() {
 
   const handleConfirmSave = () => {
     const finalName = saveName.trim();
-    if (!finalName || isNameTaken) return; // Подвійна перевірка
+    if (!finalName || isNameTaken) return;
 
     saveCurrentGame(finalName);
-    setIsSaveMenuOpen(false); // Закриваємо меню
+    setIsSaveMenuOpen(false);
   };
 
-  // Логіка завантаження
   const handleLoad = () => {
     if (!loadName) return alert("Please select a game to load.");
     loadSpecificGameByName(loadName);
     setIsLoadMenuOpen(false);
   };
 
-  // Логіка видалення
   const handleDelete = () => {
     if (!loadName) return alert("Please select a game to delete.");
 
@@ -82,10 +73,6 @@ function Controls() {
       setLoadName("");
     }
   };
-
-  // --- РЕНДЕРИНГ (4 РІЗНИХ СТАНИ) ---
-
-  // Стан 1: Користувач створює свою гру
   if (isCreating) {
     return (
       <div className='controls-container'>
@@ -160,7 +147,6 @@ function Controls() {
     );
   }
 
-  // Стан 3: Користувач відкрив меню збереження
   if (isSaveMenuOpen) {
     return (
       <div className='controls-container is-save-menu'>
@@ -199,7 +185,6 @@ function Controls() {
     );
   }
 
-  // Стан 4: Головне меню (за замовчуванням)
   return (
     <div className='controls-container'>
       <div className='control-group'>
@@ -225,20 +210,15 @@ function Controls() {
         </button>
       </div>
 
-      {/* --- Дії з грою --- */}
       <div className='control-group'>
         <button onClick={handleSolve} disabled={isLoading || !gameId}>
           Solve
         </button>
-        <button
-          onClick={handleOpenSaveMenu} // ❗️ Змінено
-          disabled={isLoading || !gameId}
-        >
+        <button onClick={handleOpenSaveMenu} disabled={isLoading || !gameId}>
           Save
         </button>
       </div>
 
-      {/* --- Завантаження та Звіти --- */}
       <div className='control-group'>
         <button onClick={() => setIsLoadMenuOpen(true)} disabled={isLoading}>
           Load / Manage

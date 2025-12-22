@@ -4,12 +4,18 @@
       "name": "Mac",
       "includePath": [
         "${workspaceFolder}/**",
-        "/Users/admin/Library/Python/3.11/include/site/python3.11"
+        "${workspaceFolder}/cpp_core/include",
+        "/opt/homebrew/include",
+        "/opt/homebrew/opt/python@3.14/Frameworks/Python.framework/Versions/3.14/include/python3.14"
       ],
-      "compilerPath": "/usr/bin/clang++",
+      "defines": [],
+      "macFrameworkPath": [
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+      ],
+      "compilerPath": "/usr/bin/clang",
       "cStandard": "c17",
       "cppStandard": "c++17",
-      "intelliSenseMode": "clang-x64"
+      "intelliSenseMode": "macos-clang-arm64"
     }
   ],
   "version": 4

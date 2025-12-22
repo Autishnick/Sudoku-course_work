@@ -7,11 +7,6 @@ const apiClient = axios.create({
   },
 });
 
-/**
- * Обгортка для обробки помилок
- * @param {Promise} requestPromise - Запит, який ми надсилаємо
- * @returns {Promise<[any, any]>} - Повертає [data, error]
- */
 const handleRequest = async requestPromise => {
   try {
     const response = await requestPromise;
@@ -22,34 +17,16 @@ const handleRequest = async requestPromise => {
   }
 };
 
-// --- Експортовані функції API ---
-
-/**
- * Запитує у сервера нову головоломку.
- * @param {string} difficulty - "easy", "medium", or "hard"
- * @returns {Promise<[object, null] | [null, object]>} [data, error]
- */
 export const generateNewGame = difficulty => {
   return handleRequest(
     apiClient.post("/api/generate", { difficulty: difficulty })
   );
 };
 
-/**
- * Надсилає поточне поле на сервер для вирішення.
- * @param {number[][]} board - Масив 9x9
- * @returns {Promise<[object, null] | [null, object]>} [data, error]
- */
 export const solveBoard = board => {
   return handleRequest(apiClient.post("/api/solve", { board: board }));
 };
 
-/**
- * Зберігає поточний стан гри в БД.
- * @param {number} game_id - ID гри з БД
- * @param {number[][]} board - Поточний стан дошки 9x9
- * @returns {Promise<[object, null] | [null, object]>} [data, error]
- */
 export const saveGame = (game_id, board, name) => {
   return handleRequest(
     apiClient.post("/api/save", {
@@ -60,22 +37,11 @@ export const saveGame = (game_id, board, name) => {
   );
 };
 
-/**
- * Завантажує збережену гру з БД.
- * @param {number} game_id - ID гри для завантаження
- * @returns {Promise<[object, null] | [null, object]>} [data, error]
- */
 export const loadGameByName = name => {
   const encodedName = encodeURIComponent(name);
   return handleRequest(apiClient.get(`/api/load_by_name/${encodedName}`));
 };
 
-/**
- * Повідомляє серверу, що гра завершена (для звітів).
- * @param {number} game_id - ID гри
- * @param {number[][]} final_board - Фінальний стан дошки
- * @returns {Promise<[object, null] | [null, object]>} [data, error]
- */
 export const finishGame = (game_id, final_board) => {
   return handleRequest(
     apiClient.post("/api/finish", {
@@ -85,10 +51,6 @@ export const finishGame = (game_id, final_board) => {
   );
 };
 
-/**
- * Повертає URL для сторінки звіту.
- * @returns {string}
- */
 export const getHtmlReportUrl = () => {
   return `${apiClient.defaults.baseURL}/api/report/html`;
 };

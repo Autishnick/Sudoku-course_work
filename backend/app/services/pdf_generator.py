@@ -17,33 +17,28 @@ def create_pdf_report(game_list: list):
     pdf.add_page()
     pdf.set_font('Helvetica', '', 10)
     
-    # Заголовки таблиці
     pdf.set_font('Helvetica', 'B', 10)
     pdf.cell(15, 10, 'ID', 1, 0, 'C')
     pdf.cell(70, 10, 'Name', 1, 0, 'C')
     pdf.cell(45, 10, 'Start Time (UTC)', 1, 0, 'C')
     pdf.cell(30, 10, 'Duration', 1, 1, 'C')
     
-    # Дані
     pdf.set_font('Helvetica', '', 9)
-    for game in game_list: # game - це словник
-        
-        # ❗️ ОСЬ ВИПРАВЛЕННЯ: Використовуємо game["key"] замість game.key
+    for game in game_list:
         game_id = str(game["id"])
         game_name = game["name"] if game["name"] else "(Unnamed)"
         start_time = game["start_time"]
         end_time = game["end_time"]
 
+        start_str = start_time.strftime('%Y-%m-%d %H:%M') if start_time else "N/A"
         duration = "N/A"
         if end_time and start_time:
-            # Об'єкти datetime все ще працюють
             duration_delta = end_time - start_time
-            duration = str(datetime.timedelta(seconds=int(duration_delta.total_seconds())))
+            duration = str(duration_delta)
         
         pdf.cell(15, 10, game_id, 1, 0, 'C')
         pdf.cell(70, 10, game_name, 1, 0, 'L')
-        pdf.cell(45, 10, start_time.strftime('%Y-%m-%d %H:%M'), 1, 0, 'C')
+        pdf.cell(45, 10, start_str, 1, 0, 'C')
         pdf.cell(30, 10, duration, 1, 1, 'C')
         
-    # Повертаємо PDF як бінарні дані
     return bytes(pdf.output())

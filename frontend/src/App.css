@@ -68,7 +68,7 @@ main {
 .win-overlay {
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px; /* Спадкує від 'main' */
+  border-radius: 8px;
 }
 .win-message {
   background-color: #2d2d2d;

@@ -29,5 +29,5 @@ pybind11_add_module(
 target_include_directories(
     sudoku_solver 
     PRIVATE 
-    include # Наша папка з .h файлами
+    include 
 )
