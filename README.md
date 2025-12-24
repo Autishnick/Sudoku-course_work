@@ -1,39 +1,35 @@
-  🎮 Веб-додаток Судоку
-Це повнофункціональний веб-додаток Судоку, створений як курсовий проект. Він використовує поліглотну архітектуру: високопродуктивне ядро на C++, бэкенд API на Python (FastAPI) та інтерактивний UI на React.
+🎮 Sudoku Web Application This is a fully functional Sudoku web application created as a course project. It uses a polyglot architecture: a high-performance core in C++, a backend API in Python (FastAPI), and an interactive UI in React.
 
-🚀 Жива Демонстрація
-https://course-work-sudoku.vercel.app/
+🚀 Live Demo https://course-work-sudoku.vercel.app/
 
-✨ Основний функціонал
-Генератор з унікальним рішенням (реалізовано на C++).
+✨ Main Features Generator with a unique solution (implemented in C++).
 
-Три рівні складності (Easy, Medium, Hard).
+Three difficulty levels (Easy, Medium, Hard).
 
-Режим "Створити свою гру" з миттєвою валідацією правил.
+“Create your own game” mode with instant rule validation.
 
-Миттєва валідація ходів (підсвічування неправильних цифр).
+Instant move validation (highlighting incorrect numbers).
 
-Збереження / Завантаження / Видалення ігор з унікальними назвами.
+Saving/loading/deleting games with unique names.
 
-Миттєва перевірка доступності назви при збереженні.
+Instant name availability check when saving.
 
-Навігація по полю за допомогою клавіш-стрілок.
+Navigation across the field using arrow keys.
 
-Автоматичне визначення перемоги.
+Automatic victory determination.
 
-Генерація HTML та PDF звітів про завершені ігри.
+Generation of HTML and PDF reports on completed games.
 
-🏗️ Технологічний стек
-C++ Core: Ядро логіки (solve, count, generate) на C++17.
+🏗️ Technology stack C++ Core: Logic core (solve, count, generate) in C++17.
 
-Міст: pybind11 для "огортання" C++ коду в Python-модуль.
+Bridge: pybind11 for “wrapping” C++ code in a Python module.
 
-Backend: Python 3.14 з FastAPI (для API), SQLAlchemy (для SQLite) та fpdf2 (для PDF).
+Backend: Python 3.14 with FastAPI (for API), SQLAlchemy (for SQLite), and fpdf2 (for PDF).
 
-Frontend: React 18 (з Vite) з React Context API для керування станом та axios для HTTP-запитів.
+Frontend: React 18 (with Vite) with React Context API for state management and axios for HTTP requests.
 
-Деплой:
+Deployment:
 
-Бэкенд контейнеризовано з Docker та розміщено на Render.
+The backend is containerized with Docker and hosted on Render.
 
-Фронтенд розміщено на Vercel.
+The frontend is hosted on Vercel.
