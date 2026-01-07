@@ -50,7 +50,7 @@ export const GameProvider = ({ children }) => {
   }, []);
 
   const fetchNewGame = useCallback(
-    async difficulty => {
+    async (difficulty) => {
       setIsLoading(true);
       clearNotification();
       setIsSolved(false);
@@ -73,7 +73,7 @@ export const GameProvider = ({ children }) => {
     [showNotification, clearNotification]
   );
 
-  const runValidation = boardToValidate => {
+  const runValidation = (boardToValidate) => {
     const newErrors = new Set();
     for (let r = 0; r < 9; r++) {
       for (let c = 0; c < 9; c++) {
@@ -105,7 +105,7 @@ export const GameProvider = ({ children }) => {
   }, [showNotification, clearNotification]);
 
   const deleteGame = useCallback(
-    async name => {
+    async (name) => {
       if (!name) return;
       setIsLoading(true);
       clearNotification();
@@ -134,12 +134,30 @@ export const GameProvider = ({ children }) => {
     } else {
       setBoard(data.solution);
       setIsSolved(true);
+
+      if (gameId) {
+        const [_, finishErr] = await api.finishGame(gameId, data.solution);
+        if (finishErr) {
+          showNotification(
+            finishErr.detail ||
+              finishErr.message ||
+              "Failed to mark game as finished.",
+            "error"
+          );
+        } else {
+          showNotification(
+            "Game completed and logged for reporting.",
+            "success"
+          );
+          fetchSavedGames();
+        }
+      }
     }
     setIsLoading(false);
-  }, [board, showNotification, clearNotification]);
+  }, [board, gameId, showNotification, clearNotification, fetchSavedGames]);
 
   const saveCurrentGame = useCallback(
-    async name => {
+    async (name) => {
       if (!gameId || !board) return;
       setIsLoading(true);
       clearNotification();
@@ -160,7 +178,7 @@ export const GameProvider = ({ children }) => {
   );
 
   const loadSpecificGameByName = useCallback(
-    async name => {
+    async (name) => {
       setIsLoading(true);
       clearNotification();
       setIsSolved(false);
@@ -203,7 +221,7 @@ export const GameProvider = ({ children }) => {
   const updateCell = (row, col, value) => {
     if (!board || (!isCreating && isSolved)) return;
 
-    const newBoard = board.map(arr => arr.slice());
+    const newBoard = board.map((arr) => arr.slice());
     newBoard[row][col] = value;
 
     if (isCreating) {
