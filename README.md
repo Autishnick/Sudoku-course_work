@@ -1,39 +1,43 @@
-🎮 Веб-додаток Судоку
-Це повнофункціональний веб-додаток Судоку, створений як курсовий проект. Він використовує поліглотну архітектуру: високопродуктивне ядро на C++, бэкенд API на Python (FastAPI) та інтерактивний UI на React.
+🎮 Веб-додаток Судоку / Sudoku Web Application
 
-🚀 Жива Демонстрація
-https://course-work-sudoku.vercel.app/
+Це повнофункціональний веб-додаток Судоку, створений як курсовий проект. Він використовує поліглотну архітектуру: високопродуктивне ядро на C++, бекенд API на Python (FastAPI) та інтерактивний UI на React.
 
-✨ Основний функціонал
-Генератор з унікальним рішенням (реалізовано на C++).
+---
 
-Три рівні складності (Easy, Medium, Hard).
+🎮 Sudoku Web Application
 
-Режим "Створити свою гру" з миттєвою валідацією правил.
+This is a fully functional Sudoku web application created as a course project. It uses a polyglot architecture: a high-performance core in C++, a backend API in Python (FastAPI), and an interactive UI in React.
 
-Миттєва валідація ходів (підсвічування неправильних цифр).
+🚀 Live Demo https://course-work-sudoku.vercel.app/
 
-Збереження / Завантаження / Видалення ігор з унікальними назвами.
+✨ Main Features Generator with a unique solution (implemented in C++).
 
-Миттєва перевірка доступності назви при збереженні.
+Three difficulty levels (Easy, Medium, Hard).
 
-Навігація по полю за допомогою клавіш-стрілок.
+“Create your own game” mode with instant rule validation.
 
-Автоматичне визначення перемоги.
+Instant move validation (highlighting incorrect numbers).
 
-Генерація HTML та PDF звітів про завершені ігри.
+Saving/loading/deleting games with unique names.
 
-🏗️ Технологічний стек
-C++ Core: Ядро логіки (solve, count, generate) на C++17.
+Instant name availability check when saving.
 
-Міст: pybind11 для "огортання" C++ коду в Python-модуль.
+Navigation across the field using arrow keys.
 
-Backend: Python 3.14 з FastAPI (для API), SQLAlchemy (для SQLite) та fpdf2 (для PDF).
+Automatic victory determination.
 
-Frontend: React 18 (з Vite) з React Context API для керування станом та axios для HTTP-запитів.
+Generation of HTML and PDF reports on completed games.
 
-Деплой:
+🏗️ Technology stack C++ Core: Logic core (solve, count, generate) in C++17.
 
-Бэкенд контейнеризовано з Docker та розміщено на Render.
+Bridge: pybind11 for “wrapping” C++ code in a Python module.
 
-Фронтенд розміщено на Vercel.
+Backend: Python 3.14 with FastAPI (for API), SQLAlchemy (for SQLite), and fpdf2 (for PDF).
+
+Frontend: React 18 (with Vite) with React Context API for state management and axios for HTTP requests.
+
+Deployment:
+
+The backend is containerized with Docker and hosted on Render.
+
+The frontend is hosted on Vercel.
