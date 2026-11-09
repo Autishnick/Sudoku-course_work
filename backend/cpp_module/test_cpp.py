@@ -21,11 +21,7 @@ for row in test_board:
 
 print("\nCalling C++ solve_puzzle()...")
 
-# -----------------
-# ❗️ ОСЬ ГОЛОВНА ЗМІНА ❗️
-# Ми присвоюємо результат новій змінній
 solved_board = sudoku_solver.solve_puzzle(test_board)
-# -----------------
 
 if solved_board:
     print("\nSolved board (returned from C++):")

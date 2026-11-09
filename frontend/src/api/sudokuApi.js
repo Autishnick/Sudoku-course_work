@@ -1,5 +1,7 @@
 import axios from "axios";
-const API_URL = "https://my-sudoku-api.onrender.com";
+// Локально: Vite proxy перенаправляє /api → http://localhost:8000
+// На Vercel: VITE_API_URL вказує на https://my-sudoku-api.onrender.com
+const API_URL = import.meta.env.VITE_API_URL || "";
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {

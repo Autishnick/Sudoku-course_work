@@ -2,12 +2,10 @@
 cmake_minimum_required(VERSION 3.15)
 project(sudoku_core)
 
-# Знайти Python (сучасний спосіб)
-# Це знайде Python 3.12, який ви встановили через Homebrew
-find_package(Python 3.12 COMPONENTS Interpreter Development REQUIRED)
+# Знайти Python 3.13+
+find_package(Python 3.13 COMPONENTS Interpreter Development REQUIRED)
 
 # Знайти pybind11
-# Тепер він має знайтись, оскільки ми встановили його через brew
 find_package(pybind11 REQUIRED)
 
 # Вказуємо стандарт C++

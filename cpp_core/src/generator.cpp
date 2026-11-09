@@ -6,8 +6,6 @@
 #include <chrono>
 #include <vector>
 
-// Допоміжна функція: заповнює 3 діагональні квадрати 3x3,
-// які не конфліктують між собою, щоб створити "затравку".
 void fill_diagonal_boxes(Board& board) {
     std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -71,10 +69,8 @@ Board generate_puzzle_function(std::string difficulty) {
         int solutions = count_solutions(temp_board);
 
         if (solutions > 1) {
-            // Якщо так - скасовуємо видалення (повертаємо цифру)
             puzzle_board[row][col] = original_value;
         } else {
-            // Якщо ні (рішення унікальне) - зараховуємо видалення
             cells_removed++;
         }
     }
