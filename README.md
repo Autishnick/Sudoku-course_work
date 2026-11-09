@@ -1,43 +1,116 @@
-🎮 Веб-додаток Судоку / Sudoku Web Application
+# 🎮 Sudoku Web Application
 
-Це повнофункціональний веб-додаток Судоку, створений як курсовий проект. Він використовує поліглотну архітектуру: високопродуктивне ядро на C++, бекенд API на Python (FastAPI) та інтерактивний UI на React.
+Веб-застосунок гри Судоку з поліглотною архітектурою: високопродуктивне ядро на **C++**, бекенд API на **Python (FastAPI)** та інтерактивний UI на **React**.
+
+**🚀 Live Demo:** https://course-work-sudoku.vercel.app/
 
 ---
 
-🎮 Sudoku Web Application
+## ✨ Функціонал
 
-This is a fully functional Sudoku web application created as a course project. It uses a polyglot architecture: a high-performance core in C++, a backend API in Python (FastAPI), and an interactive UI in React.
+- Генератор пазлів з гарантовано єдиним рішенням (C++)
+- Три рівні складності: Easy, Medium, Hard
+- Режим «Створи свій пазл» з миттєвою валідацією правил
+- Підсвічування некоректних цифр у реальному часі
+- Збереження / завантаження / видалення ігор за назвою
+- Перевірка доступності назви при збереженні
+- Навігація по полю стрілками клавіатури
+- Автоматичне визначення перемоги
+- Генерація HTML та PDF звітів по завершених іграх
 
-🚀 Live Demo https://course-work-sudoku.vercel.app/
+---
 
-✨ Main Features Generator with a unique solution (implemented in C++).
+## 🏗️ Технологічний стек
 
-Three difficulty levels (Easy, Medium, Hard).
+| Шар | Технології |
+|-----|-----------|
+| **C++ Core** | C++17, CMake, pybind11 |
+| **Backend** | Python 3.13, FastAPI, Uvicorn, SQLAlchemy, SQLite, fpdf2 |
+| **Frontend** | React 19, Vite 7, Axios, React Context API |
+| **Deploy** | Backend → Docker → Render.com · Frontend → Vercel |
 
-“Create your own game” mode with instant rule validation.
+---
 
-Instant move validation (highlighting incorrect numbers).
+## 🚀 Локальний запуск
 
-Saving/loading/deleting games with unique names.
+### Передумови
+- Python 3.13+
+- Node.js 18+
+- CMake 3.15+
+- Visual Studio Build Tools 2022 (Windows) / GCC (Linux/macOS)
 
-Instant name availability check when saving.
+### 1. Компіляція C++ модуля
 
-Navigation across the field using arrow keys.
+```bash
+cd cpp_core
+mkdir build && cd build
+cmake .. -Dpybind11_DIR="$(python -m pybind11 --cmakedir)"
+cmake --build . --config Release
+cp Release/sudoku_solver*.pyd ../backend/cpp_module/   # Windows
+# або
+cp build/*.so ../backend/cpp_module/                   # Linux/macOS
+```
 
-Automatic victory determination.
+### 2. Запуск бекенду
 
-Generation of HTML and PDF reports on completed games.
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
 
-🏗️ Technology stack C++ Core: Logic core (solve, count, generate) in C++17.
+API доступне на http://localhost:8000  
+Swagger UI: http://localhost:8000/docs
 
-Bridge: pybind11 for “wrapping” C++ code in a Python module.
+### 3. Запуск фронтенду
 
-Backend: Python 3.14 with FastAPI (for API), SQLAlchemy (for SQLite), and fpdf2 (for PDF).
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-Frontend: React 18 (with Vite) with React Context API for state management and axios for HTTP requests.
+Гра доступна на http://localhost:5173
 
-Deployment:
+---
 
-The backend is containerized with Docker and hosted on Render.
+## 📡 API Ендпоінти
 
-The frontend is hosted on Vercel.
+| Метод | Шлях | Опис |
+|-------|------|------|
+| `GET` | `/api/status` | Перевірка C++ модуля |
+| `POST` | `/api/generate` | Генерація пазлу |
+| `POST` | `/api/solve` | Вирішення пазлу |
+| `POST` | `/api/save` | Збереження гри |
+| `GET` | `/api/load_by_name/{name}` | Завантаження гри |
+| `GET` | `/api/saves` | Список збережень |
+| `DELETE` | `/api/delete/{name}` | Видалення збереження |
+| `POST` | `/api/finish` | Позначити як завершену |
+| `GET` | `/api/report/html` | HTML звіт |
+| `GET` | `/api/report/pdf` | PDF звіт |
+| `POST` | `/api/start_custom_game` | Запуск кастомного пазлу |
+
+---
+
+## 🗂️ Структура проєкту
+
+```
+course/
+├── cpp_core/              # C++ ядро (генератор + розв'язувач)
+│   ├── include/           # Заголовкові файли
+│   ├── src/               # Реалізація
+│   ├── pybind/            # pybind11 bindings
+│   └── CMakeLists.txt
+├── backend/               # FastAPI сервер
+│   ├── app/
+│   │   ├── api/           # REST роути
+│   │   ├── core/          # Python-обгортка над C++
+│   │   └── services/      # БД, PDF, HTML генератори
+│   ├── cpp_module/        # Скомпільований .pyd/.so файл
+│   └── requirements.txt
+├── frontend/              # React застосунок
+│   └── src/
+│       ├── api/           # API клієнт (axios)
+│       └── components/    # Board, Cell, Controls, Context
+└── Dockerfile             # Docker для Render.com
+```

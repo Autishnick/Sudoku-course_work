@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, UniqueConstraint
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import datetime
 import json
 
@@ -8,7 +7,9 @@ DATABASE_URL = "sqlite:///./sudoku_games.db"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+
+class Base(DeclarativeBase):
+    pass
 
 class Game(Base):
     __tablename__ = "games"

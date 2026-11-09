@@ -12,7 +12,13 @@ def format_report_as_html(game_list: list):
     <head>
         <title>Sudoku Reports</title>
         <style>
-            /* ... (ваші стилі) ... */
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 40px; background: #f9f9f9; color: #333; }
+            h1 { color: #222; }
+            table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden; }
+            th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #eee; }
+            th { background-color: #ffd600; color: #222; font-weight: 600; }
+            tr:hover { background-color: #fafafa; }
+            .empty { color: #888; font-style: italic; }
         </style>
     </head>
     <body>
@@ -29,13 +35,11 @@ def format_report_as_html(game_list: list):
     
     for game in game_list:
         game_id = game.get("id")
-        # escape names to avoid breaking HTML if they contain special chars
         raw_name = game.get("name")
         game_name = _html.escape(raw_name) if raw_name else "(Unnamed)"
         start_time = game.get("start_time")
         end_time = game.get("end_time")
 
-        # support both datetime objects and ISO strings
         if hasattr(start_time, "strftime"):
             start_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
         elif isinstance(start_time, str):
@@ -54,7 +58,7 @@ def format_report_as_html(game_list: list):
         try:
             if end_time and start_time:
                 duration_delta = end_time - start_time
-                duration = str(duration_delta)
+                duration = str(duration_delta).split(".")[0]
         except Exception:
             duration = "N/A"
 
@@ -65,6 +69,15 @@ def format_report_as_html(game_list: list):
                 <td>{start_str}</td>
                 <td>{end_str}</td>
                 <td>{duration}</td>
+            </tr>
+        """
+    
+    if not game_list:
+        html += """
+            <tr>
+                <td colspan="5" class="empty" style="text-align: center; padding: 25px;">
+                    Немає завершених ігор / No completed games yet.
+                </td>
             </tr>
         """
     
